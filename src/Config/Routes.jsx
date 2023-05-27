@@ -19,7 +19,7 @@ const Routes = () => {
             path='/:category'
             component={Catalog}
         />
-        <Route 
+        <Route
             path='/'
             exact
             component={Home}
