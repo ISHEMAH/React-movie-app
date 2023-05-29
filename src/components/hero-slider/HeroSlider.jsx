@@ -2,8 +2,11 @@ import React, { useEffect,useState } from 'react'
 
 import tmdbApi,{category,movieType}from '../../api/tmdbApi';
 import apiConfig from '../../api/apiConfig';
-
+import './hero-slider.scss';
+import SwiperCore,{ Autoplay } from 'swiper';
+import {Swiper, SwiperSlide} from 'swiper/react'
 const HeroSlider = () => {
+    SwiperCore.use([Autoplay]);
     const [movieItems,setMovieItems] = useState([]);
 
     useEffect(() => {
@@ -21,7 +24,23 @@ const HeroSlider = () => {
     },[]);
   return (
     <div className='hero-slider'>
-      HeroSlider
+    <Swiper
+  modules={[Autoplay]}
+  grabCursor={true}
+  spaceBetween={0}
+  slidesPerView={1}
+  autoplay={{ delay: 3000 }} // Add this line
+>
+        {
+            movieItems.map((item,i) => (
+                <SwiperSlide key={i}>
+                    {({ isActive }) => (
+                        <img src={apiConfig.originalImage(item.backdrop_path)}/>
+                    )}
+                </SwiperSlide>
+            ))
+        }
+      </Swiper>
     </div>
   )
 }
